@@ -23,4 +23,4 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('users/data', [UserController::class, 'getUsersData'])->name('users.data');
 
 Route::get('/api/search', [UserController::class, 'autocomplete'])->name('autocomplete');
-Route::get('/api/data', [UserController::class, 'getData'])->name('data');
+// Route::get('/api/data', [UserController::class, 'getData'])->name('data');

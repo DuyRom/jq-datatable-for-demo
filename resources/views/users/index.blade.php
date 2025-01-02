@@ -40,60 +40,26 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ asset('js/datatable.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            // Khởi tạo DataTable
-            var table = $('#example').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route("users.data") }}',
-                    data: function(d) {
-                        $('.column-search').each(function() {
-                            var columnIndex = $(this).data('column');
-                            var searchValue = this.value;
-                            d.columns[columnIndex].search.value = searchValue;
-                        });
-                    }
-                },
-                columns: [
-                    { data: 'name', name: 'name', sortable: false },
-                    { data: 'email', name: 'email', sortable: false }
-                ]
-            });
+            <script>
+    $(document).ready(function() {
+        const dataTableManager = new DataTableManager(
+            'example',
+            '{{ route("users.data") }}',
+            '{{ route("autocomplete") }}',
+            [
+                { data: 'name', name: 'name', sortable: false },
+                { data: 'email', name: 'email', sortable: false }
+            ]
+        );
+        dataTableManager.initialize();
+    });
+</script>
 
-            // Toggle filter row
-            $('#filter-toggle').on('click', function() {
-                $('#filter-row').toggle();
-            });
-
-            // Column search
-            $('.column-search').on('keyup', function() {
-                table.column($(this).data('column')).search(this.value).draw();
-            });
-
-            // Thiết lập jQuery Autocomplete cho từng cột nếu cần
-            $(".column-search").autocomplete({
-                source: function(request, response) {
-                    var column = $(this.element).data('column-name'); // Lấy tên cột từ thuộc tính data
-                    $.ajax({
-                        url: "{{ route('autocomplete') }}",
-                        dataType: "json",
-                        data: {
-                            term: request.term,
-                            column: column // Gửi tên cột
-                        },
-                        success: function(data) {
-                            response(data.slice(0, 10)); // Giới hạn 10 kết quả
-                        }
-                    });
-                },
-                select: function(event, ui) {
-                    var column = $(this).data('column');
-                    table.column(column).search(ui.item.value).draw();
-                }
-            });
         });
     </script>
 </body>
