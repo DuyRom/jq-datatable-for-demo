@@ -45,22 +45,18 @@
 
     <script>
         $(document).ready(function() {
-            <script>
-    $(document).ready(function() {
-        const dataTableManager = new DataTableManager(
-            'example',
-            '{{ route("users.data") }}',
-            '{{ route("autocomplete") }}',
-            [
-                { data: 'name', name: 'name', sortable: false },
-                { data: 'email', name: 'email', sortable: false }
-            ]
-        );
-        dataTableManager.initialize();
-    });
-</script>
-
+            const dataTableManager = new DataTableManager(
+                'example',
+                '{{ route("users.data") }}',
+                [
+                    { data: 'name', name: 'name', sortable: false },
+                    { data: 'email', name: 'email', sortable: false }
+                ],
+                '{{ route("autocomplete") }}'
+            );
+            dataTableManager.initialize();
         });
     </script>
+
 </body>
 </html>
